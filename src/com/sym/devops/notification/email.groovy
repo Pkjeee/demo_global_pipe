@@ -10,10 +10,10 @@ package com.sym.devops.notification
 /**************************************************
 ***** Function to send the Email notification *****
 ***************************************************/
-def sendemail(String STATUS, String BODY, String RECIPIENT, String ENVIRONMENT)
+def sendemail(String STATUS, String BODY, String RECIPIENT, String DEPLOYMENT_SERVERS)
 {
   try {
-    SUBJECT="${env.JOB_NAME} | $STATUS | $ENVIRONMENT"
+    SUBJECT="${env.JOB_NAME} | $STATUS | $DEPLOYMENT_SERVERS"
     emailext body: "${BODY}", mimeType: "text/html", subject: "${SUBJECT}", to: "${RECIPIENT}"
   }
   catch (Exception caughtError) {
@@ -28,7 +28,7 @@ def sendemail(String STATUS, String BODY, String RECIPIENT, String ENVIRONMENT)
 /************************************************
 ***** Function to send the deployment email *****
 *************************************************/
-def sendDeployEmail(String BRAND, String ENVIRONMENT)
+def sendDeployEmail(String BRAND, String DEPLOYMENT_SERVERS)
 {
     try {
       wrap([$class: 'AnsiColorBuildWrapper']) {
@@ -79,5 +79,3 @@ DevOps Team
       }
     }
 }
-
-

@@ -78,9 +78,9 @@ def cleanBuildPackage(String BRAND_NAME, String BUILD_PACKAGE_DIRECTORY)
    try {
      wrap([$class: 'AnsiColorBuildWrapper']) {
         println "\u001B[32mINFO => Cleaning up old JAVA packages for brand ${BRAND_NAME}, please wait..."
-        def PACKAGES = sh (script: "ls -t ${BUILD_PACKAGE_DIRECTORY}/${BRAND_NAME}-BUILD-*.tar.gz | tail -n +3",returnStdout: true).trim()
+        def PACKAGES = sh (script: "ls -t ${BUILD_PACKAGE_DIRECTORY}/${BRAND_NAME}*.tar.gz | tail -n +3",returnStdout: true).trim()
         if (PACKAGES) {
-        sh "ls -t ${BUILD_PACKAGE_DIRECTORY}/${BRAND_NAME}-BUILD-*.tar.gz | tail -n +3 | xargs rm --"
+        sh "ls -t ${BUILD_PACKAGE_DIRECTORY}/${BRAND_NAME}*.tar.gz* | tail -n +3 | xargs rm --"
         }
       }
     }
