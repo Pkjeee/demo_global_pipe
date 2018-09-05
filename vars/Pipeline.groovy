@@ -26,7 +26,7 @@ def call(body)
    timestamps {
      try {
         def mav = new maven()
-        def s = new sonar()
+//        def s = new sonar()
 
 //        mav.createReportDirectory("${config.REPORT_DIRECTORY}")
 //        def html = new htmlReport()
@@ -50,11 +50,11 @@ def call(body)
            def git = new git()
            git.Checkout("${config.GIT_URL}","${BRANCH}","${config.GIT_CREDENTIALS}")
         }
-	stage ('\u2777 Sonar Analysis'){
-                   
-	       s.javaJSSonarAnalysis("${config.SONAR_PROPERTY}")
-	       NEXT_STAGE='maven_build'
-}
+	stage ('\u2777 Sonar Analysis') { 
+           def s = new sonar()        
+	   s.javaJSSonarAnalysis("${config.SONAR_PROPERTY}")
+	   NEXT_STAGE='maven_build'
+        }  
         stage ('\u2778 Build Tasks') {
           parallel (
             "\u2460 Maven Build" : {
@@ -78,12 +78,13 @@ def call(body)
                mav.createPackage("${config.BRAND_NAME}","${config.BUILD_PACKAGE_DIRECTORY}")
                NEXT_STAGE='copy_package'
            },
-           "\u2463 Copy Package" : {
-             while (NEXT_STAGE != "copy_package") {
-                continue
-             }
-               mav.copyBuildPackage("${config.BRAND_NAME}","${config.BUILD_PACKAGE_DIRECTORY}","${LINUX_CREDENTIALS}","${config.DEPLOYMENT_PACKAGE_DIRECTORY}","${DEPLOYMENT_SERVERS}","${config.LINUX_USER}")
-           },   
+//           "\u2463 Copy Package" : {
+//             while (NEXT_STAGE != "copy_package") {
+//                continue
+//             }
+//               mav.copyBuildPackage("${config.BRAND_NAME}","${config.BUILD_PACKAGE_DIRECTORY}","${LINUX_CREDENTIALS}","${config.DEPLOYMENT_PACKAGE_DIRECTORY}","${DEPLOYMENT_SERVERS}","${config.LINUX_USER}")
+//           },   
+
            failFast: true
          )
        }
