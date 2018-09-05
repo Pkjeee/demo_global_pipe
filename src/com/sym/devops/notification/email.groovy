@@ -49,14 +49,14 @@ Please find the details of the latest code deployed:
     <TH>BUILD NUMBER</TH>
     <TH>BRANCH NAME</TH>
     <TH>COMMIT ID </TH>
-    <TH>ENVIRONMENT</TH>
+    <TH>DEPLOYMENT_SERVERS</TH>
     <TH>BRAND</TH>
 </TR>
 <TR>
     <TD>$BUILD_NUMBER</TD>
     <TD>$GIT_BRANCH</TD>
     <TD>$GIT_COMMIT</TD>
-    <TD>$ENVIRONMENT</TD>
+    <TD>$DEPLOYMENT_SERVERS</TD>
     <TD>$BRAND</TD>
 </TR>
 </TABLE>
