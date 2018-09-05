@@ -80,21 +80,21 @@ def call(body)
          )
        }
        stage('\u2779 Post-Build Tasks') {
-//         parallel (
+         parallel (
 //           "\u2460 Deployment Alert" : {
 //             def deploy = new RubyOnRailsDeployment()
 //             deploy.deployRubyCode("${LINUX_CREDENTIALS}","${config.LINUX_USER}", "${DEPLOYMENT_SERVERS}", "${ENVIRONMENT}", "${config.BRAND_NAME}", "${config.DEPLOYMENT_SCRIPT}")
 //             NEXT_STAGE='send_alert'
 //           },
            "\u2461 Deployment Alert" : {
-             while (NEXT_STAGE != 'send_alert') {
-               continue
-             }
+//             while (NEXT_STAGE != 'send_alert') {
+//               continue
+//             }
              def e = new email()
              e.sendDeployEmail("${config.BRAND_NAME}","${ENVIRONMENT}")
            },
            failFast: true
-//         )
+         )
 //       }
      }
      catch (Exception caughtError) {
