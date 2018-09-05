@@ -35,13 +35,13 @@ def call(body)
         branch_name = new ChoiceParameterDefinition('BRANCH', ['development','master'] as String[],'')
         value = input(message: 'Please select specified inputs', parameters: [branch_name])
         if(value == 'development') {
-//               LINUX_CREDENTIALS = 'LINUX-DEV-KEY'
+               LINUX_CREDENTIALS = 'LINUX-DEV-KEY'
                DEPLOYMENT_SERVERS = '192.168.56.102'
 //               ENVIRONMENT = 'development'
                BRANCH = 'development'
         }
 	if(value == 'master') {
-//               LINUX_CREDENTIALS = 'LINUX-DEV-KEY'
+               LINUX_CREDENTIALS = 'LINUX-DEV-KEY'
                DEPLOYMENT_SERVERS = '192.168.56.102'
 //	       ENVIRONMENT = 'master'
 	       BRANCH = 'master'
@@ -82,7 +82,7 @@ def call(body)
              while (NEXT_STAGE != "copy_package") {
                 continue
              }
-               mav.copyBuildPackage("${config.BRAND_NAME}","${config.BUILD_PACKAGE_DIRECTORY}","${config.DEPLOYMENT_PACKAGE_DIRECTORY}", "${DEPLOYMENT_SERVERS}", "${config.LINUX_USER}")
+               mav.copyBuildPackage("${config.BRAND_NAME}","${config.BUILD_PACKAGE_DIRECTORY}","${LINUX_CREDENTIALS}","${config.DEPLOYMENT_PACKAGE_DIRECTORY}","${DEPLOYMENT_SERVERS}","${config.LINUX_USER}")
            },   
            failFast: true
          )

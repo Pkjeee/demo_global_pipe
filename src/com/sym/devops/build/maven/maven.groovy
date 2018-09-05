@@ -49,7 +49,7 @@ def createPackage(String BRAND_NAME, String BUILD_PACKAGE_DIRECTORY)
 /**************************************************
 ***** Function to copy the mavaen build package *****
 ***************************************************/
-def copyBuildPackage(String BRAND_NAME, String BUILD_PACKAGE_DIRECTORY, String DEPLOYMENT_PACKAGE_DIRECTORY, String DEPLOYMENT_SERVERS, String LINUX_USER)
+def copyBuildPackage(String BRAND_NAME, String BUILD_PACKAGE_DIRECTORY, String LINUX_CREDENTIALS, String DEPLOYMENT_PACKAGE_DIRECTORY, String DEPLOYMENT_SERVERS, String LINUX_USER)
 {
   try {
     wrap([$class: 'AnsiColorBuildWrapper']) {
