@@ -95,7 +95,7 @@ def call(body)
            },
            failFast: true
          )
-//       }
+       }
      }
      catch (Exception caughtError) {
         wrap([$class: 'AnsiColorBuildWrapper']) {
