@@ -91,7 +91,7 @@ def call(body)
 //              continue
 //             }
              def e = new email()
-             e.sendDeployEmail("${config.BRAND_NAME}","${ENVIRONMENT}")
+             e.sendDeployEmail("${config.BRAND_NAME}","${DEPLOYMENT_SERVERS}")
            },
            failFast: true
          )
