@@ -32,20 +32,20 @@ def call(body)
 //        def html = new htmlReport()
         currentBuild.result = "SUCCESS"
         NEXT_STAGE = "none"
-        branch_name = new ChoiceParameterDefinition('BRANCH', ['development','master'] as String[],'')
-        value = input(message: 'Please select specified inputs', parameters: [branch_name])
-        if(value == 'development') {
-               LINUX_CREDENTIALS = 'LINUX-DEV-KEY'
-               DEPLOYMENT_SERVERS = '192.168.56.102'
-               ENVIRONMENT = 'development'
-               BRANCH = 'development'
-        }
-	if(value == 'master') {
-              LINUX_CREDENTIALS = 'LINUX-DEV-KEY'
-               DEPLOYMENT_SERVERS = '192.168.56.102'
-	       ENVIRONMENT = 'master'
-	       BRANCH = 'master'
-	}
+//        branch_name = new ChoiceParameterDefinition('BRANCH', ['development','master'] as String[],'')
+//        value = input(message: 'Please select specified inputs', parameters: [branch_name])
+//        if(value == 'development') {
+//               LINUX_CREDENTIALS = 'SYM-DEV-R1'
+//               DEPLOYMENT_SERVERS = '192.168.56.102'
+//	       ENVIRONMENT = 'development'
+              BRANCH = 'master'
+//        }
+//	if(value == 'master') {
+//               LINUX_CREDENTIALS = 'SYM-DEV-R1'
+//               DEPLOYMENT_SERVERS = '192.168.56.102'
+//	       ENVIRONMENT = 'master'
+//	       BRANCH = 'master'
+//	}
         stage ('\u2776 Code Checkout') {
            def git = new git()
            git.Checkout("${config.GIT_URL}","${BRANCH}","${config.GIT_CREDENTIALS}")
@@ -113,7 +113,7 @@ def call(body)
         }
      }
      finally {
-//        def g = new git()
+         def g = new git()
 //         g.notifyBitbucket("${config.BITBUCKET_NOTIFY_URL}","${currentBuild.result}")
          def e = new email()
          String BODY = new File("${WORKSPACE}/${config.EMAIL_TEMPLATE}").text
