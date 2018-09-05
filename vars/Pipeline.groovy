@@ -109,7 +109,7 @@ def call(body)
 //         g.notifyBitbucket("${config.BITBUCKET_NOTIFY_URL}","${currentBuild.result}")
          def e = new email()
          String BODY = new File("${WORKSPACE}/${config.EMAIL_TEMPLATE}").text
-       e.sendemail("${currentBuild.result}","$BODY","${config.RECIPIENT}","${ENVIRONMENT}")
+       e.sendemail("${currentBuild.result}","$BODY","${config.RECIPIENT}","${DEPLOYMENT_SERVERS}")
      }
 
    }
