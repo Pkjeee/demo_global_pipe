@@ -94,8 +94,8 @@ def call(body)
              e.sendDeployEmail("${config.BRAND_NAME}","${ENVIRONMENT}")
            },
            failFast: true
-         )
-       }
+//         )
+//       }
      }
      catch (Exception caughtError) {
         wrap([$class: 'AnsiColorBuildWrapper']) {
