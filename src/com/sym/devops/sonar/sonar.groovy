@@ -13,8 +13,8 @@ def javaJSSonarAnalysis(String SONAR_PROPERTY)
             println " This code is running from second block of Sonar Pipeline code. The value of sonar property is ${SONAR_PROPERTY} "
             wrap([$class: 'AnsiColorBuildWrapper']) {
             println "\u001B[32m[INFO] running sonar analysis with file $SONAR_PROPERTY, please wait..."
-             withSonarQubeEnv('Sonar_on_75') {
-                sh "/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar/bin/sonar-scanner -Dproject.settings=${SONAR_PROPERTY}"
+             withSonarQubeEnv('SONARQUBE') {
+                sh "/app/sonarscanner3/bin/sonar-scanner -Dproject.settings=${SONAR_PROPERTY}"
               }
 			  currentBuild.result = 'SUCCESS'
             }

@@ -8,6 +8,7 @@ import com.sym.devops.scm.*
 import com.sym.devops.build.maven.*
 import com.sym.devops.sonar.*
 import com.sym.devops.reports.*
+import com.sym.devops.notification.*
 
 //import com.sym.devops.scm.*
 //import com.sym.devops.build.mav.*
@@ -97,8 +98,8 @@ def call(body)
              while (NEXT_STAGE != 'send_alert') {
                continue
              }
-//             def e = new email()
-//             e.sendDeployEmail("${config.BRAND_NAME}","${ENVIRONMENT}")
+             def e = new email()
+             e.sendDeployEmail("${config.BRAND_NAME}","${ENVIRONMENT}")
            },
            failFast: true
          )
@@ -111,13 +112,13 @@ def call(body)
             throw caughtError
         }
      }
-//     finally {
-//         def g = new git()
+     finally {
+         def g = new git()
 //         g.notifyBitbucket("${config.BITBUCKET_NOTIFY_URL}","${currentBuild.result}")
-//         def e = new email()
-//         String BODY = new File("${WORKSPACE}/${config.EMAIL_TEMPLATE}").text
+         def e = new email()
+         String BODY = new File("${WORKSPACE}/${config.EMAIL_TEMPLATE}").text
 //       e.sendemail("${currentBuild.result}","$BODY","${config.RECIPIENT}","${ENVIRONMENT}")
-//     }
+     }
 
    }
 }
