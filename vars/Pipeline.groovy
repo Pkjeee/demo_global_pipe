@@ -10,13 +10,6 @@ import com.sym.devops.sonar.*
 import com.sym.devops.reports.*
 import com.sym.devops.notification.*
 
-//import com.sym.devops.scm.*
-//import com.sym.devops.build.mav.*
-//import com.sym.devops.reports.*
-//import com.sym.devops.notification.*
-//import com.sym.devops.deploy.*
-//import com.sym.devops.approval.*
-
 def call(body) 
 {
    def config = [:]
@@ -26,8 +19,6 @@ def call(body)
    timestamps {
      try {
         def mav = new maven()
-//        def s = new sonar()
-
 //        mav.createReportDirectory("${config.REPORT_DIRECTORY}")
 //        def html = new htmlReport()
         currentBuild.result = "SUCCESS"
@@ -118,7 +109,7 @@ def call(body)
 //         g.notifyBitbucket("${config.BITBUCKET_NOTIFY_URL}","${currentBuild.result}")
          def e = new email()
          String BODY = new File("${WORKSPACE}/${config.EMAIL_TEMPLATE}").text
-//       e.sendemail("${currentBuild.result}","$BODY","${config.RECIPIENT}","${ENVIRONMENT}")
+       e.sendemail("${currentBuild.result}","$BODY","${config.RECIPIENT}","${ENVIRONMENT}")
      }
 
    }
