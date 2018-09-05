@@ -39,7 +39,7 @@ def createPackage(String BRAND_NAME, String BUILD_PACKAGE_DIRECTORY)
   }
   catch (Exception caughtException) {
     wrap([$class: 'AnsiColorBuildWrapper']) {
-       println "\u001B[41mERROR => failed to create the compressed package ${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz, exiting..."
+       println "\u001B[41mERROR => failed to compressed package ${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz, exiting..."
        currentBuild.result = 'FAILED'
        throw caughtException
     }
@@ -53,10 +53,10 @@ def copyBuildPackage(String BRAND_NAME, String BUILD_PACKAGE_DIRECTORY, String L
 {
   try {
     wrap([$class: 'AnsiColorBuildWrapper']) {
-       println "\u001B[32mINFO => Deploying JAVA package ${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz, please wait..."
+       println "\u001B[32mINFO => Copying JAVA package ${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz to ${DEPLOYMENT_SERVERS}, please wait..."
         for (LINUX_SERVER in DEPLOYMENT_SERVERS.split(',')) {
            sshagent(["${LINUX_CREDENTIALS}"]) {
-             sh "scp -i ${BUILD_PACKAGE_DIRECTORY}/${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz ${LINUX_USER}@${LINUX_SERVER}:$DEPLOYMENT_PACKAGE_DIRECTORY"
+             sh "scp -r ${BUILD_PACKAGE_DIRECTORY}/${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz ${LINUX_USER}@${LINUX_SERVER}:$DEPLOYMENT_PACKAGE_DIRECTORY"
            }
       }
     }
@@ -77,16 +77,16 @@ def cleanBuildPackage(String BRAND_NAME, String BUILD_PACKAGE_DIRECTORY)
 {
    try {
      wrap([$class: 'AnsiColorBuildWrapper']) {
-        println "\u001B[32mINFO => Cleaning up old JAVA build packages for brand ${BRAND_NAME}, please wait..."
-        def PACKAGES = sh (script: "ls -t ${BUILD_PACKAGE_DIRECTORY}/${BRAND_NAME}-BUILD-${BUILD_NUMBER}*.tar.gz | tail -n +3",returnStdout: true).trim()
+        println "\u001B[32mINFO => Cleaning up old JAVA packages for brand ${BRAND_NAME}, please wait..."
+        def PACKAGES = sh (script: "ls -t ${BUILD_PACKAGE_DIRECTORY}/${BRAND_NAME}-BUILD-*.tar.gz | tail -n +3",returnStdout: true).trim()
         if (PACKAGES) {
-        sh "ls -t ${BUILD_PACKAGE_DIRECTORY}/${BRAND_NAME}-BUILD-${BUILD_NUMBER}*.tar.gz | tail -n +3 | xargs rm --"
+        sh "ls -t ${BUILD_PACKAGE_DIRECTORY}/${BRAND_NAME}-BUILD-*.tar.gz | tail -n +3 | xargs rm --"
         }
       }
     }
    catch(Exception caughtException) {
      wrap([$class: 'AnsiColorBuildWrapper']) {
-        println "\u001B[41mERROR => failed to clean the old JAVA build packages for brand ${BRAND_NAME}, exiting..."
+        println "\u001B[41mERROR => failed to clean the old JAVA packages for brand ${BRAND_NAME}, exiting..."
         currentBuild.result = 'FAILED'
         throw caughtException
       }
