@@ -36,7 +36,7 @@ def createPackage(String BRAND_NAME, String BUILD_PACKAGE_DIRECTORY)
   try {
     wrap([$class: 'AnsiColorBuildWrapper']) {
       println "\u001B[32mINFO => Creating compressed package ${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz, please wait..."
-      sh "echo $BUILD_NUMBER > BUILD_NUMBER && cd $BUILD_PACKAGE_DIRECTORY && tar -cvzf ${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz spring-test-mvc-configuration.war"
+      sh "echo $BUILD_NUMBER > BUILD_NUMBER && cd $BUILD_PACKAGE_DIRECTORY && tar -cvzf ${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz x.war"
     }
   }
   catch (Exception caughtException) {
