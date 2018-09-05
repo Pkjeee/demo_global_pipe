@@ -12,14 +12,12 @@ package com.sym.devops.build.maven
 *********************************************/
 def mavenBuild(String MAVEN_HOME, String MAVEN_GOAL)
 {
-   try {
-      wrap([$class: 'AnsiColorBuildWrapper']) {
-	    println "\u001B[32mINFO => Building Maven modules, please wait..."
-		sh """
-		   $MAVEN_HOME/bin/mvn $MAVEN_GOAL
-		   """
-	  }
-   }
+  try {
+    wrap([$class: 'AnsiColorBuildWrapper']) {
+      println "\u001B[32mINFO => Building Maven modules, please wait..."
+      sh "$MAVEN_HOME/bin/mvn $MAVEN_GOAL"
+    }
+  }
    catch (Exception caughtException) {
       wrap([$class: 'AnsiColorBuildWrapper']) {
          println "\u001B[41mERROR => failed to install Maven modules..."
@@ -55,17 +53,17 @@ def copyBuildPackage(String BRAND_NAME, String BUILD_PACKAGE_DIRECTORY, String L
 {
   try {
     wrap([$class: 'AnsiColorBuildWrapper']) {
-       println "\u001B[32mINFO => Deploying JAVA build package ${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz, please wait..."
+       println "\u001B[32mINFO => Deploying JAVA package ${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz, please wait..."
        for (LINUX_SERVER in DEPLOYMENT_SERVERS.split(',')) {
-       sshagent(["${LINUX_CREDENTIALS}"]) {
+       {
        sh "scp ${BUILD_PACKAGE_DIRECTORY}/${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz ${LINUX_USER}@${LINUX_SERVER}:$DEPLOYMENT_PACKAGE_DIRECTORY"
-        }
+       }
       }
     }
   }
   catch(Exception caughtException) {
     wrap([$class: 'AnsiColorBuildWrapper']) {
-       println "\u001B[41mERROR => failed to copy the build package package ${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz, exiting..."
+       println "\u001B[41mERROR => failed to copy the JAVA package  ${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz, exiting..."
        currentBuild.result = 'FAILED'
        throw caughtException
     }
