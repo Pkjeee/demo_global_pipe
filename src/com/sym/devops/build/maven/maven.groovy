@@ -54,7 +54,11 @@ def copyBuildPackage(String BRAND_NAME, String BUILD_PACKAGE_DIRECTORY, String D
   try {
     wrap([$class: 'AnsiColorBuildWrapper']) {
        println "\u001B[32mINFO => Deploying JAVA package ${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz, please wait..."
-       sh "scp ${BUILD_PACKAGE_DIRECTORY}/${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz ${LINUX_USER}@${LINUX_SERVER}:$DEPLOYMENT_PACKAGE_DIRECTORY"
+        for (LINUX_SERVER in DEPLOYMENT_SERVERS.split(',')) {
+           sshagent(["${LINUX_CREDENTIALS}"]) {
+             sh "scp ${BUILD_PACKAGE_DIRECTORY}/${BRAND_NAME}-BUILD-${BUILD_NUMBER}.tar.gz ${LINUX_USER}@${LINUX_SERVER}:$DEPLOYMENT_PACKAGE_DIRECTORY"
+           }
+      }
     }
   }
   catch(Exception caughtException) {

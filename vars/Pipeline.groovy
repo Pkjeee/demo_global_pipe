@@ -82,7 +82,7 @@ def call(body)
              while (NEXT_STAGE != "copy_package") {
                 continue
              }
-		mav.copyBuildPackage("${config.BRAND_NAME}","${config.BUILD_PACKAGE_DIRECTORY}","${config.DEPLOYMENT_PACKAGE_DIRECTORY}","${DEPLOYMENT_SERVERS}","${config.LINUX_USER}")
+               mav.copyBuildPackage("${config.BRAND_NAME}","${config.BUILD_PACKAGE_DIRECTORY}","${config.DEPLOYMENT_PACKAGE_DIRECTORY}", "${DEPLOYMENT_SERVERS}", "${config.LINUX_USER}")
            },   
            failFast: true
          )
