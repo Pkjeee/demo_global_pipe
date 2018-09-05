@@ -88,13 +88,14 @@ def call(body)
 //           },
            "\u2461 Deployment Alert" : {
 //             while (NEXT_STAGE != 'send_alert') {
-//               continue
+//              continue
 //             }
              def e = new email()
              e.sendDeployEmail("${config.BRAND_NAME}","${ENVIRONMENT}")
            },
            failFast: true
          )
+       }
      }
      catch (Exception caughtError) {
         wrap([$class: 'AnsiColorBuildWrapper']) {
