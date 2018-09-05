@@ -5,7 +5,7 @@
 ***** Revision    :: 1.0                                          *****
 ***********************************************************************/
 
-package com.fcaa.devops.notification
+package com.sym.devops.notification
 
 /**************************************************
 ***** Function to send the Email notification *****
