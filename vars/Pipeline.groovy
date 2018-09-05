@@ -80,11 +80,11 @@ def call(body)
          )
        }
        stage('\u2779 Post-Build Tasks') {
-         parallel (
-//           "\u2460 Deploy Package" : {
+//         parallel (
+//           "\u2460 Deployment Alert" : {
 //             def deploy = new RubyOnRailsDeployment()
 //             deploy.deployRubyCode("${LINUX_CREDENTIALS}","${config.LINUX_USER}", "${DEPLOYMENT_SERVERS}", "${ENVIRONMENT}", "${config.BRAND_NAME}", "${config.DEPLOYMENT_SCRIPT}")
-             NEXT_STAGE='send_alert'
+//             NEXT_STAGE='send_alert'
 //           },
            "\u2461 Deployment Alert" : {
              while (NEXT_STAGE != 'send_alert') {
@@ -95,7 +95,7 @@ def call(body)
            },
            failFast: true
          )
-       }
+//       }
      }
      catch (Exception caughtError) {
         wrap([$class: 'AnsiColorBuildWrapper']) {
