@@ -84,7 +84,7 @@ def call(body)
 //           "\u2460 Deploy Package" : {
 //             def deploy = new RubyOnRailsDeployment()
 //             deploy.deployRubyCode("${LINUX_CREDENTIALS}","${config.LINUX_USER}", "${DEPLOYMENT_SERVERS}", "${ENVIRONMENT}", "${config.BRAND_NAME}", "${config.DEPLOYMENT_SCRIPT}")
-//             NEXT_STAGE='send_alert'
+             NEXT_STAGE='send_alert'
 //           },
            "\u2461 Deployment Alert" : {
              while (NEXT_STAGE != 'send_alert') {
