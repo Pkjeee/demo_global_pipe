@@ -35,13 +35,13 @@ def call(body)
         branch_name = new ChoiceParameterDefinition('BRANCH', ['development','master'] as String[],'')
         value = input(message: 'Please select specified inputs', parameters: [branch_name])
         if(value == 'development') {
-               LINUX_CREDENTIALS = 'LINUX-DEV-KEY'
+//               LINUX_CREDENTIALS = 'LINUX-DEV-KEY'
                DEPLOYMENT_SERVERS = '192.168.56.102'
 //               ENVIRONMENT = 'development'
                BRANCH = 'development'
         }
 	if(value == 'master') {
-              LINUX_CREDENTIALS = 'LINUX-DEV-KEY'
+//              LINUX_CREDENTIALS = 'LINUX-DEV-KEY'
                DEPLOYMENT_SERVERS = '192.168.56.102'
 //	       ENVIRONMENT = 'master'
 	       BRANCH = 'master'
