@@ -10,4 +10,4 @@ Demo For Global Pipeline in Scripted DSL Pipeline
  5. sonarqube jenkins plugins
  6. pipeline jenkins plugins
 
-Note: modification would needed as per project dependencies 
+# Note: modification would needed as per project dependencies 
