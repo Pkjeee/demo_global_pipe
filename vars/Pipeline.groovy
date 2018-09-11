@@ -7,7 +7,6 @@
 import com.sym.devops.scm.*
 import com.sym.devops.build.maven.*
 import com.sym.devops.sonar.*
-import com.sym.devops.reports.*
 import com.sym.devops.notification.*
 
 def call(body) 
