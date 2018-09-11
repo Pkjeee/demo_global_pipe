@@ -68,7 +68,7 @@ DevOps Team
 </PRE>
 </BODY>
 </HTML>"""
-        mail bcc: '', body: "${BODY}", cc: '', from: 'pramod.s.02@gmail.com', mimeType: 'text/html', replyTo: 'pramod.s.02@gmail.com', subject: "Build Deployment Notification", to: "pramod.s.02@gmail.com"
+        mail bcc: '', body: "${BODY}", cc: '', from: 'pramod.s.02@gmail.com', mimeType: 'text/html', replyTo: 'pramod.s.02@gmail.com', subject: "Build $BUILD_NUMBER Deployment Notification $DEPLOYMENT_SERVERS", to: "pramod.s.02@gmail.com,shashanktomar375@gmail.com"
 	  }
     }
     catch (Exception caughtException){

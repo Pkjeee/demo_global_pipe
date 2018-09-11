@@ -18,8 +18,6 @@ def call(body)
    timestamps {
      try {
         def mav = new maven()
-//        mav.createReportDirectory("${config.REPORT_DIRECTORY}")
-//        def html = new htmlReport()
         currentBuild.result = "SUCCESS"
         NEXT_STAGE = "none"
         branch_name = new ChoiceParameterDefinition('BRANCH', ['development','master'] as String[],'')
@@ -27,13 +25,11 @@ def call(body)
         if(value == 'development') {
                LINUX_CREDENTIALS = 'LINUX-DEV-KEY'
                DEPLOYMENT_SERVERS = '192.168.56.102'
-//               ENVIRONMENT = 'development'
                BRANCH = 'development'
         }
 	if(value == 'master') {
                LINUX_CREDENTIALS = 'LINUX-DEV-KEY'
                DEPLOYMENT_SERVERS = '192.168.56.102'
-//	       ENVIRONMENT = 'master'
 	       BRANCH = 'master'
 	}
         stage ('\u2776 Code Checkout') {
@@ -66,32 +62,20 @@ def call(body)
                  continue
                }
                mav.createPackage("${config.BRAND_NAME}","${config.BUILD_PACKAGE_DIRECTORY}")
-               NEXT_STAGE='copy_package'
+               NEXT_STAGE='send_alert'
            },
-//           "\u2463 Copy Package" : {
-//             while (NEXT_STAGE != "copy_package") {
-//                continue
-//             }
-//               mav.copyBuildPackage("${config.BRAND_NAME}","${config.BUILD_PACKAGE_DIRECTORY}","${LINUX_CREDENTIALS}","${config.DEPLOYMENT_PACKAGE_DIRECTORY}","${DEPLOYMENT_SERVERS}","${config.LINUX_USER}")
-//           },   
-
            failFast: true
          )
        }
        stage('\u2779 Post-Build Tasks') {
          parallel (
-//           "\u2460 Deployment Alert" : {
-//             def deploy = new RubyOnRailsDeployment()
-//             deploy.deployRubyCode("${LINUX_CREDENTIALS}","${config.LINUX_USER}", "${DEPLOYMENT_SERVERS}", "${ENVIRONMENT}", "${config.BRAND_NAME}", "${config.DEPLOYMENT_SCRIPT}")
-//             NEXT_STAGE='send_alert'
-//           },
            "\u2461 Deployment Alert" : {
-//             while (NEXT_STAGE != 'send_alert') {
-//              continue
-//             }
+             while (NEXT_STAGE != 'send_alert') {
+              continue
+             }
              def e = new email()
              e.sendDeployEmail("${config.BRAND_NAME}","${DEPLOYMENT_SERVERS}")
-           },
+             },
            failFast: true
          )
        }
@@ -104,8 +88,8 @@ def call(body)
         }
      }
      finally {
-//        def g = new git()
-//         g.notifyBitbucket("${config.BITBUCKET_NOTIFY_URL}","${currentBuild.result}")
+        def g = new git()
+         g.notifyBitbucket("${config.BITBUCKET_NOTIFY_URL}","${currentBuild.result}")
          def e = new email()
          String BODY = new File("${WORKSPACE}/${config.EMAIL_TEMPLATE}").text
        e.sendemail("${currentBuild.result}","$BODY","${config.RECIPIENT}","${DEPLOYMENT_SERVERS}")
