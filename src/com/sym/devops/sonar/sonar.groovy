@@ -6,11 +6,9 @@ def javaJSSonarAnalysis(String SONAR_PROPERTY)
       
         if ( "${SONAR_PROPERTY}" == "null" ) {
 	       SONAR_PROPERTY = "sonar-project.properties"
-             println " This code is running from first block of Sonar Pipeline code. The value of sonar property is ${SONAR_PROPERTY}"
 	    }
 	    if (fileExists("${SONAR_PROPERTY}"))
         {
-            println " This code is running from second block of Sonar Pipeline code. The value of sonar property is ${SONAR_PROPERTY} "
             wrap([$class: 'AnsiColorBuildWrapper']) {
             println "\u001B[32m[INFO] running sonar analysis with file $SONAR_PROPERTY, please wait..."
              withSonarQubeEnv('SONARQUBE') {
